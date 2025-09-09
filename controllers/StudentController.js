@@ -74,9 +74,25 @@ const studentLogin = async (req,res) => {
     
 }
 
+const deleteStudent =async(req,res)=>{
+  try {
+    const {studentId} = req.body
+    const deleteStudent = await studentModel.findByIdAndDelete({_id:studentId})
+    if(!deleteStudent){
+     return res.status(400).json({message:"student not found"})
+    }
+     res.status(200).json({message:"deleted successful", data})
+   
+    
+  } catch (error) {
+    res.status(500).json({message: error.message}) 
+  }
+}
+
 
 
 module.exports ={
     StudentRegistration,
-    studentLogin
+    studentLogin,
+    deleteStudent
 }
